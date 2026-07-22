@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isaac Gould | Conference Links</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Standard & Academic Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --teal-deep: #0f4c5c;
+            --teal-bright: #2ec4b6;
+            --gold-accent: #ff9f1c;
+            --glass-bg: rgba(255, 255, 255, 0.92);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-dark: #0f172a;
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+        
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            background-image: linear-gradient(rgba(15, 76, 92, 0.9), rgba(46, 196, 182, 0.7)), 
+                              url('https://images.unsplash.com/photo-1599940824399-b87987ceb72a?q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Password Modal Styling */
+        #password-gate {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .gate-card {
+            background: #ffffff;
+            padding: 30px 24px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 340px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gate-card h2 {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0 0 8px 0;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+        }
+
+        .gate-card p {
+            font-size: 0.88rem;
+            color: #64748b;
+            margin: 0 0 20px 0;
+        }
+
+        .gate-card input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        .gate-card input:focus {
+            border-color: var(--teal-bright);
+        }
+
+        .gate-card button {
+            width: 100%;
+            padding: 12px;
+            background: var(--teal-deep);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        #error-msg {
+            color: #e11d48;
+            font-size: 0.82rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* Hide main container until authenticated */
+        .container {
+            display: none;
+            width: 100%;
+            max-width: 440px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .headshot {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffffff;
+            margin: 0 auto 16px auto;
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem; font-weight: 800;
+            margin: 0 0 6px 0; color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+        }
+
+        .affil {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.92rem;
+            margin-bottom: 28px;
+            backdrop-filter: blur(6px);
+            font-weight: 600;
+        }
+
+        .link-grid { display: flex; flex-direction: column; gap: 12px; }
+
+        .link-card {
+            display: flex; align-items: center;
+            padding: 14px 18px;
+            background-color: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            color: var(--teal-deep);
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .link-card.standout-item {
+            border: 2px solid var(--gold-accent);
+            background: linear-gradient(135deg, #ffffff 0%, #fffbf0 100%);
+        }
+        .link-card.standout-item .icon-wrapper { color: var(--gold-accent); }
+
+        .link-card.email-item {
+            background: rgba(15, 76, 92, 0.85);
+            border: 1px solid var(--teal-bright);
+            color: #ffffff;
+            margin-top: 6px;
+        }
+        .link-card.email-item .icon-wrapper, .link-card.email-item .link-title { color: #ffffff; }
+
+        .icon-wrapper {
+            width: 38px; height: 38px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; color: var(--teal-bright);
+            margin-right: 14px; flex-shrink: 0;
+        }
+
+        .link-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 1rem;
+            flex-grow: 1; text-align: left;
+        }
+
+        .video-thumbnail {
+            width: 36px; height: 36px;
+            border-radius: 6px; object-fit: cover;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Password Prompt Gate -->
+    <div id="password-gate">
+        <div class="gate-card">
+            <i class="fas fa-lock" style="font-size: 2rem; color: var(--teal-deep); margin-bottom: 12px;"></i>
+            <h2>Conference Portal</h2>
+            <p>Enter the passcode shown on the poster/slides to access links.</p>
+            <input type="password" id="pass-input" placeholder="Passcode">
+            <button onclick="checkPassword()">Unlock Page</button>
+            <div id="error-msg">Incorrect passcode. Try again.</div>
+        </div>
+    </div>
+
+    <!-- Protected Content -->
+    <div class="container" id="main-content">
+        <img src="headshot.jpg" alt="Isaac Gould" class="headshot">
+        <h1>Isaac Gould</h1>
+        <div class="affil">NRC Postdoc, Naval Research Lab<br>Washington DC</div>
+
+        <div class="link-grid">
+            <!-- 1. LinkedIn -->
+            <a href="https://www.linkedin.com/in/isaac-gould/" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="icon-wrapper"><i class="fab fa-linkedin-in"></i></div>
+                <span class="link-title">LinkedIn</span>
+            </a>
+
+            <!-- 2. Instagram -->
+            <a href="https://www.instagram.com/gouldilocks24/" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="icon-wrapper"><i class="fab fa-instagram"></i></div>
+                <span class="link-title">Instagram</span>
+            </a>
+
+            <!-- 3. Google Scholar -->
+            <a href="https://scholar.google.com/citations?hl=en&user=2F5hY3IAAAAJ&view_op=list_works&sortby=pubdate" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="icon-wrapper"><i class="ai ai-google-scholar"></i></div>
+                <span class="link-title">Google Scholar</span>
+            </a>
+
+            <!-- 4. Streamlit App (Gold Highlight) -->
+            <a href="https://vibronic-franck-condon.streamlit.app/" target="_blank" rel="noopener noreferrer" class="link-card standout-item">
+                <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
+                <span class="link-title">Streamlit App</span>
+            </a>
+
+            <!-- 5. Crystal Cooling Video with Thumbnail (Gold Highlight) -->
+            
+            <a href="https://drive.google.com/file/d/1KJqM5iqSpdeSrL3dwpeKHajFVSDUnCkc/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="link-card standout-item">
+                <div class="icon-wrapper"><i class="fab fa-google-drive"></i></div>
+                <span class="link-title">Crystal Cooling Video</span>
+                <img src="Crystal_cooling.png" alt="Preview" class="video-thumbnail">
+            </a>
+
+            <!-- 6. Conference Poster (Gold Highlight) -->
+            <a href="https://drive.google.com/file/d/1niAHUsUFIKdaziQsJJgGgF_uCjqPjtkC/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-card standout-item">
+                <div class="icon-wrapper"><i class="fas fa-file-powerpoint"></i></div>
+                <span class="link-title">Conference Poster</span>
+            </a>
+
+            <!-- 7. CV
+            <a href="https://qr.link/pUctgq" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="icon-wrapper"><i class="fas fa-file-pdf"></i></div>
+                <span class="link-title">CV</span>
+            </a> -->
+
+            <!-- 8. Direct Email Contact Action -->
+            <a href="mailto:isaacgould94@gmail.com" class="link-card email-item">
+                <div class="icon-wrapper"><i class="far fa-envelope"></i></div>
+                <span class="link-title">isaacgould94@gmail.com</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Set your passcode here (e.g., 'nrl2026')
+        const SECRET_PASSCODE = "NRC2026"; 
+
+        function checkPassword() {
+            const input = document.getElementById('pass-input').value;
+            if (input.toLowerCase() === SECRET_PASSCODE.toLowerCase()) {
+                document.getElementById('password-gate').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+
+        // Allow pressing Enter key to submit passcode
+        document.getElementById("pass-input").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
